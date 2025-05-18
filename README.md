@@ -123,7 +123,3 @@ The frontend development server will start on port 3000.
 
 
 See the `.env.example` files in both the backend and frontend directories for required environment variables.
-
-## License
-
-[MIT](LICENSE)
