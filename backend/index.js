@@ -18,6 +18,7 @@ const corsOptions = {
     "https://wealthwisee.live",
     "https://www.wealthwisee.live",
     "http://localhost:3000",
+    "https://wealthwise-tjjf.vercel.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -32,6 +33,7 @@ const validateOrigin = (req, res, next) => {
     "https://wealthwisee.live",
     "https://www.wealthwisee.live",
     "http://localhost:3000",
+    "https://wealthwise-tjjf.vercel.app"
   ];
   // Skip origin check if no origin header (like for direct API calls)
   if (!req.headers.origin || allowedOrigins.includes(req.headers.origin)) {
