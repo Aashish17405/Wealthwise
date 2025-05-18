@@ -191,7 +191,7 @@ const InvestmentRecommendationForm = ({mail}) => {
                                 transition={{ duration: 0.2 }}
                                 className="relative"
                             >
-                                <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                                <div className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-6">
                                     {field.icon}
                                 </div>
                                {field.type === 'select' ? (
@@ -199,7 +199,7 @@ const InvestmentRecommendationForm = ({mail}) => {
                                         name={field.name}
                                         value={formData[field.name]}
                                         onChange={handleChange}
-                                        className="w-full pl-12 pr-4 py-3 border rounded-xl transition-all duration-300 bg-white/15 text-white/70 border-gray-300 hover:bg-black/5 focus:bg-white/15 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 [&>option]:bg-indigo-900/55 [&:focus]:bg-transparent [&:focus-visible]:bg-transparent"
+                                        className="h-[50px] min-h-[50px] w-full pl-12 pr-4 py-3 border rounded-xl transition-all duration-300 bg-white/15 text-white/70 border-gray-300 hover:bg-black/5 focus:bg-white/15 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 [&>option]:bg-indigo-900/55 [&:focus]:bg-transparent [&:focus-visible]:bg-transparent"
                                         required
                                     >
                                         <option value="" disabled>
@@ -213,14 +213,16 @@ const InvestmentRecommendationForm = ({mail}) => {
                                     </select>
                                 ) : (
                                     <input
-                                        type={field.type}
-                                        name={field.name}
-                                        value={formData[field.name]}
-                                        onChange={handleChange}
-                                        placeholder={field.label}
-                                        className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-green-500/50 transition-all duration-300"
-                                        required
-                                    />
+					    type="number"
+					    name={field.name}
+					    value={formData[field.name]}
+					    onChange={handleChange}
+					    placeholder={field.label}
+					    className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-green-500/50 transition-all duration-300"
+					    required
+					    inputMode="numeric"
+					    pattern="[0-9]*"
+					/>
                                 )}
                             </motion.div>
                         ))}
