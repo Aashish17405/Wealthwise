@@ -4,12 +4,11 @@ WealthWise is a comprehensive financial advisory platform that helps users manag
 
 ## Features
 
-- Investment portfolio tracking and analysis
-- Fixed deposit recommendations
+- Personalised Stock, Mutual Funds and Fixed deposit recommendations
 - Mutual fund insights
 - AI-powered financial chatbot
 - Expense tracking and management
-- Stock market data and analysis
+- Virtual Investment portfolio tracking and analysis
 
 ## Prerequisites
 
@@ -24,7 +23,7 @@ WealthWise is a comprehensive financial advisory platform that helps users manag
 ### Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Aashish17405/Wealthwise
 cd Wealthwise
 ```
 
@@ -101,8 +100,6 @@ The frontend development server will start on port 3000.
 - `frontend/`: Contains the React.js application
   - `src/`: Source code
     - `components/`: React components
-    - `pages/`: Page components
-    - `services/`: API services
     - `App.js`: Main application component
 
 ## Technologies Used
@@ -124,7 +121,6 @@ The frontend development server will start on port 3000.
 - Recharts for data visualization
 - Axios for API requests
 
-## Environment Variables
 
 See the `.env.example` files in both the backend and frontend directories for required environment variables.
 
