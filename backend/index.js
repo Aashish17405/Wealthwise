@@ -14,9 +14,6 @@ const CryptoJS = require("crypto-js");
 // Middleware to handle CORS
 const corsOptions = {
   origin: [
-    "https://wealthwisee.vercel.app",
-    "https://wealthwisee.live",
-    "https://www.wealthwisee.live",
     "http://localhost:3000",
     "https://wealthwise-tjjf.vercel.app"
   ],
@@ -29,9 +26,6 @@ app.use(cors(corsOptions));
 
 const validateOrigin = (req, res, next) => {
   const allowedOrigins = [
-    "https://wealthwisee.vercel.app",
-    "https://wealthwisee.live",
-    "https://www.wealthwisee.live",
     "http://localhost:3000",
     "https://wealthwise-tjjf.vercel.app"
   ];

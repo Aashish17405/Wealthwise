@@ -10,7 +10,6 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import Cookies from 'js-cookie';
 import { Phone } from 'lucide-react';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 
 const GoogleIcon = () => (
@@ -96,38 +95,6 @@ const StockMarketPattern = React.memo(() => (
 const Login = (log) => {
   const [isLogin, setIsLogin] = useState(true);
   const logoutTimerRef = useRef(null); 
-
-  const [recaptchaToken, setRecaptchaToken] = useState(null);
-  const recaptchaRef = useRef();
-  const siteKey = process.env.REACT_APP_SITEKEY;
-
-  const handleRecaptcha = (token) => {
-    setRecaptchaToken(token);
-  };
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    const loadRecaptchaScript = () => {
-      script.src = `https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit`;
-      script.async = true;
-      script.onload = () => {
-        if (window.grecaptcha) {
-          window.grecaptcha.ready(() => {
-            window.grecaptcha.execute();
-          });
-        }
-      };
-      script.onerror = () => {
-        console.error('Failed to load reCAPTCHA script.');
-      };
-      document.body.appendChild(script);
-    };
-    loadRecaptchaScript();
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, [siteKey]);
-
   const [errors, setErrors] = useState({});
 
   const [name, setName] = useState('');
@@ -354,8 +321,6 @@ const Login = (log) => {
 
     setLoading(true);
     let encrypted="";
-    const Rtoken = await recaptchaRef.current.execute();
-    setRecaptchaToken(Rtoken);
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -370,7 +335,7 @@ const Login = (log) => {
           setIsLoggedIn(true);          
           const key = CryptoJS.enc.Utf8.parse(ps.padEnd(32, ' ')); 
           const iv = CryptoJS.enc.Utf8.parse(ps.padEnd(16, ' '));
-           const val={email1:email,auth:auth1,token1:Rtoken};
+           const val={email1:email,auth:auth1};
            const valString = JSON.stringify(val);
           encrypted = CryptoJS.AES.encrypt(valString, key, {
               iv: iv,
@@ -421,7 +386,6 @@ const Login = (log) => {
       settoken(null);
       toast.dismiss();
       toast.error('Invalid email or password. If You are a New User Please Signup');
-      recaptchaRef.current.reset();
       setshouldHaveRainbowEffect(true);
 
       setTimeout(() => {
@@ -440,7 +404,6 @@ const Login = (log) => {
       toast.dismiss();
 
       toast.success('Logout successful!');
-      recaptchaRef.current.reset();
       if (logoutTimerRef.current) {
         clearTimeout(logoutTimerRef.current); 
       }
@@ -453,10 +416,7 @@ const Login = (log) => {
     } catch (error) {
       console.error(error);
       toast.dismiss();
-      recaptchaRef.current.reset();
       toast.error('Error occurred during logout. Please try again.');
-     
-      
     }
   };
 
@@ -508,8 +468,6 @@ const Login = (log) => {
 
     setLoading(true);
     let encrypted="";
-    const Rtoken = await recaptchaRef.current.execute();
-    setRecaptchaToken(Rtoken);
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -542,7 +500,7 @@ const Login = (log) => {
         
         const key = CryptoJS.enc.Utf8.parse(ps.padEnd(32, ' ')); 
         const iv = CryptoJS.enc.Utf8.parse(ps.padEnd(16, ' '));
-         const val={email1:email,auth:auth1,token1:Rtoken};
+         const val={email1:email,auth:auth1};
          const valString = JSON.stringify(val);
         encrypted = CryptoJS.AES.encrypt(valString, key, {
             iv: iv,
@@ -707,12 +665,6 @@ const Login = (log) => {
       pauseOnHover
     />    
     <div className="min-h-screen relative flex flex-col items-center xl:items-end justify-center xl:pr-12 p-5 overflow-hidden">
-      <ReCAPTCHA
-          ref={recaptchaRef} 
-          sitekey={siteKey}
-          onChange={handleRecaptcha}
-          size="invisible"
-      />
       <StockMarketPattern />
       <div className="relative bg-white/95 backdrop-blur-sm rounded-xl shadow-xl w-full max-w-md p-6 md:p-8">
      
