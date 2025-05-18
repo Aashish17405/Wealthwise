@@ -186,11 +186,13 @@ const Portfolio = ({ mail }) => {
 
   // Format percentage values
   const formatPercentage = (value) => {
+    if (value === undefined || value === null) return "0.00%";
     return `${value > 0 ? "+" : ""}${value.toFixed(2)}%`;
   };
 
   // Get status color based on profit/loss
   const getStatusColor = (value) => {
+    if (value === undefined || value === null) return "text-gray-400";
     if (value > 0) return "text-green-500";
     if (value < 0) return "text-red-500";
     return "text-gray-400";
@@ -344,9 +346,12 @@ const Portfolio = ({ mail }) => {
                 >
                   {portfolioData.insights?.overallProfitLossPercentage > 0 &&
                     "+"}
-                  {(
-                    portfolioData.insights?.overallProfitLossPercentage || 0
-                  ).toFixed(2)}
+                  {portfolioData.insights?.overallProfitLossPercentage !==
+                  undefined
+                    ? portfolioData.insights.overallProfitLossPercentage.toFixed(
+                        2
+                      )
+                    : "0.00"}
                   %
                 </span>
               </div>
@@ -477,10 +482,16 @@ const Portfolio = ({ mail }) => {
                               )}
                             >
                               {portfolioData.insights.bestPerformer
-                                .profitLossPercentage > 0 && "+"}
-                              {portfolioData.insights.bestPerformer.profitLossPercentage.toFixed(
-                                2
-                              )}
+                                .profitLossPercentage !== undefined &&
+                                portfolioData.insights.bestPerformer
+                                  .profitLossPercentage > 0 &&
+                                "+"}
+                              {portfolioData.insights.bestPerformer
+                                .profitLossPercentage !== undefined
+                                ? portfolioData.insights.bestPerformer.profitLossPercentage.toFixed(
+                                    2
+                                  )
+                                : "0.00"}
                               %
                             </p>
                           </div>
@@ -540,10 +551,16 @@ const Portfolio = ({ mail }) => {
                               )}
                             >
                               {portfolioData.insights.worstPerformer
-                                .profitLossPercentage > 0 && "+"}
-                              {portfolioData.insights.worstPerformer.profitLossPercentage.toFixed(
-                                2
-                              )}
+                                .profitLossPercentage !== undefined &&
+                                portfolioData.insights.worstPerformer
+                                  .profitLossPercentage > 0 &&
+                                "+"}
+                              {portfolioData.insights.worstPerformer
+                                .profitLossPercentage !== undefined
+                                ? portfolioData.insights.worstPerformer.profitLossPercentage.toFixed(
+                                    2
+                                  )
+                                : "0.00"}
                               %
                             </p>
                           </div>
@@ -636,8 +653,13 @@ const Portfolio = ({ mail }) => {
                               stock.profitLossPercentage
                             )}`}
                           >
-                            {stock.profitLossPercentage > 0 && "+"}
-                            {stock.profitLossPercentage.toFixed(2)}%
+                            {stock.profitLossPercentage !== undefined &&
+                              stock.profitLossPercentage > 0 &&
+                              "+"}
+                            {stock.profitLossPercentage !== undefined
+                              ? stock.profitLossPercentage.toFixed(2)
+                              : "0.00"}
+                            %
                           </td>
                           <td className="py-4 px-6 text-center">
                             <button
@@ -791,12 +813,16 @@ const Portfolio = ({ mail }) => {
                           )}
                           <span className="text-sm ml-1">
                             (
-                            {(
-                              (selectedStock.currentPrice /
-                                selectedStock.boughtPrice -
-                                1) *
-                              100
-                            ).toFixed(2)}
+                            {selectedStock &&
+                            selectedStock.currentPrice &&
+                            selectedStock.boughtPrice
+                              ? (
+                                  (selectedStock.currentPrice /
+                                    selectedStock.boughtPrice -
+                                    1) *
+                                  100
+                                ).toFixed(2)
+                              : "0.00"}
                             %)
                           </span>
                         </span>
