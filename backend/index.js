@@ -11,6 +11,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
 
+// Middleware to handle CORS
 const corsOptions = {
   origin: [
     "https://wealthwisee.vercel.app",
